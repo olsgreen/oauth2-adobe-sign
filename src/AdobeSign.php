@@ -1,8 +1,7 @@
 <?php
 
 
-namespace KevinEm\OAuth2\Client;
-
+namespace Olsgreen\OAuth2\Client;
 
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
@@ -53,7 +52,7 @@ class AdobeSign extends AbstractProvider
      */
     public function getBaseAuthorizationUrl()
     {
-        return "https://$this->dataCenter.echosign.com/public/oauth";
+        return "https://$this->dataCenter.adobesign.com/public/oauth";
     }
 
     /**
@@ -66,7 +65,7 @@ class AdobeSign extends AbstractProvider
      */
     public function getBaseAccessTokenUrl(array $params)
     {
-        return "https://$this->dataCenter.echosign.com/oauth/token";
+        return "https://$this->dataCenter.adobesign.com/oauth/token";
     }
 
     /**
@@ -78,7 +77,7 @@ class AdobeSign extends AbstractProvider
      */
     public function getBaseRefreshTokenUrl()
     {
-        return "https://$this->dataCenter.echosign.com/oauth/refresh";
+        return "https://$this->dataCenter.adobesign.com/oauth/refresh";
     }
 
     /**
@@ -90,7 +89,7 @@ class AdobeSign extends AbstractProvider
      */
     public function getBaseRevokeTokenUrl()
     {
-        return "https://$this->dataCenter.echosign.com/oauth/revoke";
+        return "https://$this->dataCenter.adobesign.com/oauth/revoke";
     }
 
     /**
@@ -101,7 +100,7 @@ class AdobeSign extends AbstractProvider
      */
     public function getResourceOwnerDetailsUrl(AccessToken $token)
     {
-        // TODO: Implement getResourceOwnerDetailsUrl() method.
+        return "https://$this->dataCenter.adobesign.com/users/" . $token->getResourceOwnerId();
     }
 
     /**
@@ -155,7 +154,10 @@ class AdobeSign extends AbstractProvider
      */
     protected function checkResponse(ResponseInterface $response, $data)
     {
-        // TODO: Implement checkResponse() method.
+        if (!empty($data['error'])) {
+            $message = $data['error']['type'].': '.$data['error']['message'];
+            throw new IdentityProviderException($message, $data['error']['code'], $data);
+        }
     }
 
     /**
@@ -168,7 +170,7 @@ class AdobeSign extends AbstractProvider
      */
     protected function createResourceOwner(array $response, AccessToken $token)
     {
-        // TODO: Implement createResourceOwner() method.
+        return new AdobeSignUser($response);
     }
 
     /**
