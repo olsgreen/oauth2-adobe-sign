@@ -11,7 +11,7 @@ use Psr\Http\Message\ResponseInterface;
 
 /**
  * Class AdobeSign
- * @package KevinEm\OAuth2\Client
+ * @package Olsgreen\OAuth2\Client
  */
 class AdobeSign extends AbstractProvider
 {
@@ -23,7 +23,7 @@ class AdobeSign extends AbstractProvider
     /**
      * @var string
      */
-    protected $dataCenter = 'secure.na1';
+    protected $dataCenter = 'na1';
 
     /**
      * AdobeSign constructor.
@@ -52,7 +52,7 @@ class AdobeSign extends AbstractProvider
      */
     public function getBaseAuthorizationUrl()
     {
-        return "https://$this->dataCenter.adobesign.com/public/oauth";
+        return "https://secure.$this->dataCenter.adobesign.com/public/oauth";
     }
 
     /**
@@ -65,7 +65,7 @@ class AdobeSign extends AbstractProvider
      */
     public function getBaseAccessTokenUrl(array $params)
     {
-        return "https://$this->dataCenter.adobesign.com/oauth/token";
+        return "https://secure.$this->dataCenter.adobesign.com/oauth/token";
     }
 
     /**
@@ -77,7 +77,7 @@ class AdobeSign extends AbstractProvider
      */
     public function getBaseRefreshTokenUrl()
     {
-        return "https://$this->dataCenter.adobesign.com/oauth/refresh";
+        return "https://secure.$this->dataCenter.adobesign.com/oauth/refresh";
     }
 
     /**
@@ -89,7 +89,7 @@ class AdobeSign extends AbstractProvider
      */
     public function getBaseRevokeTokenUrl()
     {
-        return "https://$this->dataCenter.adobesign.com/oauth/revoke";
+        return "https://secure.$this->dataCenter.adobesign.com/oauth/revoke";
     }
 
     /**
@@ -100,7 +100,7 @@ class AdobeSign extends AbstractProvider
      */
     public function getResourceOwnerDetailsUrl(AccessToken $token)
     {
-        return "https://$this->dataCenter.adobesign.com/users/" . $token->getResourceOwnerId();
+        throw new NotImplementedException();
     }
 
     /**
@@ -155,8 +155,8 @@ class AdobeSign extends AbstractProvider
     protected function checkResponse(ResponseInterface $response, $data)
     {
         if (!empty($data['error'])) {
-            $message = $data['error']['type'].': '.$data['error']['message'];
-            throw new IdentityProviderException($message, $data['error']['code'], $data);
+            $message = $data['error'].': '.$data['error_description'];
+            throw new IdentityProviderException($message, 0, $data);
         }
     }
 
@@ -170,7 +170,7 @@ class AdobeSign extends AbstractProvider
      */
     protected function createResourceOwner(array $response, AccessToken $token)
     {
-        return new AdobeSignUser($response);
+        throw new NotImplementedException();
     }
 
     /**
