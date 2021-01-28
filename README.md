@@ -14,12 +14,12 @@ composer require olsgreen/oauth2-adobe-sign
 
 ## Usage
 
-Usage is the same as The League's OAuth client, using `\Olsgreen\OAuth2\Client\AdobeSign` as the provider.
+Usage is the same as The League's OAuth client, using `\Olsgreen\OAuth2\Client\Provider\AdobeSign` as the provider.
 
 ### Authorization Code Flow
 
 ```php
-$provider = new Olsgreen\OAuth2\Client\AdobeSign([
+$provider = new Olsgreen\OAuth2\Client\Provider\AdobeSign([
     'clientId'          => '{github-client-id}',
     'clientSecret'      => '{github-client-secret}',
     'redirectUri'       => 'https://example.com/callback-url',
