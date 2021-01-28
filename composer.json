@@ -22,7 +22,7 @@
   ],
   "autoload": {
     "psr-4": {
-      "Olsgreen\\OAuth2\\Client\\": "src/"
+      "Olsgreen\\OAuth2\\Client\\Provider\\": "src/"
     }
   },
   "autoload-dev": {

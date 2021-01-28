@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Olsgreen\OAuth2\Client;
+namespace Olsgreen\OAuth2\Client\Provider;
 
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
