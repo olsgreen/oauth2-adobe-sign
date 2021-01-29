@@ -1,16 +1,17 @@
 <?php
 
 
-namespace KevinEm\OAuth2\Client\Tests;
+namespace Tests;
 
-use KevinEm\OAuth2\Client\AdobeSign;
-use Mockery as m;
+use Mockery;
+use Olsgreen\OAuth2\Client\Provider\AdobeSign;
+use Olsgreen\OAuth2\Client\Provider\NotImplementedException;
 
 /**
  * Class AdobeSignTest
- * @package KevinEm\OAuth2\Client\Tests
+ * @package Tests
  */
-class AdobeSignTest extends \PHPUnit_Framework_TestCase
+class AdobeSignTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var AdobeSign
@@ -21,7 +22,7 @@ class AdobeSignTest extends \PHPUnit_Framework_TestCase
      * Sets up the fixture, for example, open a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->provider = new AdobeSign([
             'clientId' => 'mock_client_id',
@@ -33,13 +34,9 @@ class AdobeSignTest extends \PHPUnit_Framework_TestCase
         ]);
     }
 
-    /**
-     * Tears down the fixture, for example, close a network connection.
-     * This method is called after a test is executed.
-     */
-    protected function tearDown()
+    protected function tearDown(): void
     {
-        m::close();
+        Mockery::close();
         parent::tearDown();
     }
 
@@ -53,7 +50,7 @@ class AdobeSignTest extends \PHPUnit_Framework_TestCase
         ];
 
         $url = $this->provider->getAuthorizationUrl($options);
-        $this->assertContains(implode('+', $options['scope']), $url);
+        $this->assertStringContainsString(implode('+', $options['scope']), $url);
     }
 
     public function testGetAuthorizationUrl()
@@ -61,7 +58,7 @@ class AdobeSignTest extends \PHPUnit_Framework_TestCase
         $url = $this->provider->getAuthorizationUrl();
         $uri = parse_url($url);
 
-        $this->assertEquals('secure.na1.echosign.com', $uri['host']);
+        $this->assertEquals('secure.na1.adobesign.com', $uri['host']);
         $this->assertEquals('/public/oauth', $uri['path']);
     }
 
@@ -71,11 +68,11 @@ class AdobeSignTest extends \PHPUnit_Framework_TestCase
             'access_token' => 'mock_access_token'
         ];
 
-        $response = m::mock('Psr\Http\Message\ResponseInterface');
+        $response = Mockery::mock('Psr\Http\Message\ResponseInterface');
         $response->shouldReceive('getBody')->andReturn(json_encode($accessToken));
         $response->shouldReceive('getHeader')->andReturn(['content-type' => 'json']);
 
-        $client = m::mock('GuzzleHttp\ClientInterface');
+        $client = Mockery::mock('GuzzleHttp\ClientInterface');
         $client->shouldReceive('send')->times(1)->andReturn($response);
         $this->provider->setHttpClient($client);
 
@@ -90,11 +87,11 @@ class AdobeSignTest extends \PHPUnit_Framework_TestCase
             'access_token' => 'mock_access_token'
         ];
 
-        $response = m::mock('Psr\Http\Message\ResponseInterface');
+        $response = Mockery::mock('Psr\Http\Message\ResponseInterface');
         $response->shouldReceive('getBody')->andReturn(json_encode($accessToken));
         $response->shouldReceive('getHeader')->andReturn(['content-type' => 'json']);
 
-        $client = m::mock('GuzzleHttp\ClientInterface');
+        $client = Mockery::mock('GuzzleHttp\ClientInterface');
         $client->shouldReceive('send')->times(1)->andReturn($response);
         $this->provider->setHttpClient($client);
 
@@ -110,28 +107,18 @@ class AdobeSignTest extends \PHPUnit_Framework_TestCase
 
     public function testGetResourceOwnerDetailsUrl()
     {
-        $accessToken = m::mock('League\OAuth2\Client\Token\AccessToken');
+        $this->expectException(NotImplementedException::class);
+
+        $accessToken = Mockery::mock('League\OAuth2\Client\Token\AccessToken');
         $res = $this->provider->getResourceOwnerDetailsUrl($accessToken);
-        $this->assertNull($res);
     }
 
     public function testCreateResourceOwner()
     {
-        $resourceOwner = [];
+        $this->expectException(NotImplementedException::class);
 
-        $response = m::mock('Psr\Http\Message\ResponseInterface');
-        $response->shouldReceive('getBody')->andReturn(json_encode($resourceOwner));
-        $response->shouldReceive('getHeader')->andReturn(['content-type' => 'json']);
-
-        $client = m::mock('GuzzleHttp\ClientInterface');
-        $client->shouldReceive('send')->times(1)->andReturn($response);
-
-        $this->provider->setHttpClient($client);
-
-        $accessToken = m::mock('League\OAuth2\Client\Token\AccessToken');
-
+        $accessToken = Mockery::mock('League\OAuth2\Client\Token\AccessToken');
         $res = $this->provider->getResourceOwner($accessToken);
-        $this->assertNull($res);
     }
 
     public function testDataCenterOption()
@@ -143,12 +130,12 @@ class AdobeSignTest extends \PHPUnit_Framework_TestCase
             'scope' => [
                 'mock_scope:type'
             ],
-            'dataCenter' => 'api.jp1'
+            'dataCenter' => 'jp1'
         ]);
 
-        $this->assertEquals('https://api.jp1.echosign.com/public/oauth', $provider->getBaseAuthorizationUrl());
-        $this->assertEquals('https://api.jp1.echosign.com/oauth/token', $provider->getBaseAccessTokenUrl([]));
-        $this->assertEquals('https://api.jp1.echosign.com/oauth/refresh', $provider->getBaseRefreshTokenUrl());
-        $this->assertEquals('https://api.jp1.echosign.com/oauth/revoke', $provider->getBaseRevokeTokenUrl());
+        $this->assertEquals('https://secure.jp1.adobesign.com/public/oauth', $provider->getBaseAuthorizationUrl());
+        $this->assertEquals('https://secure.jp1.adobesign.com/oauth/token', $provider->getBaseAccessTokenUrl([]));
+        $this->assertEquals('https://secure.jp1.adobesign.com/oauth/refresh', $provider->getBaseRefreshTokenUrl());
+        $this->assertEquals('https://secure.jp1.adobesign.com/oauth/revoke', $provider->getBaseRevokeTokenUrl());
     }
 }

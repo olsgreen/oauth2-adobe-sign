@@ -78,6 +78,8 @@ $ ./vendor/bin/phpunit
 
 ## Credits
 
+Originally forked from [kevinm/oauth2-adobe-sign](https://github.com/kevinem/oauth2-adobe-sign).
+
 - [Oliver Green](https://github.com/olsgreen)
 - [All Contributors](https://github.com/thephpleague/oauth2-github/contributors)
 

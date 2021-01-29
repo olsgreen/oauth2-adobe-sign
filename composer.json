@@ -27,7 +27,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Olsgreen\\OAuth2\\Client\\Test\\": "tests/"
+      "Tests\\": "tests/"
     }
   }
 }
