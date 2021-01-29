@@ -20,8 +20,8 @@ Usage is the same as The League's OAuth client, using `\Olsgreen\OAuth2\Client\P
 
 ```php
 $provider = new Olsgreen\OAuth2\Client\Provider\AdobeSign([
-    'clientId'          => '{github-client-id}',
-    'clientSecret'      => '{github-client-secret}',
+    'clientId'          => '{adobe-client-id}',
+    'clientSecret'      => '{adobe-client-secret}',
     'redirectUri'       => 'https://example.com/callback-url',
     'dataCenter'        => 'eu2'
 ]);
