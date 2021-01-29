@@ -1,8 +1,11 @@
  # Adobe Sign Provider for OAuth 2.0 Client
 [![Latest Version](https://img.shields.io/github/release/olsgreen/oauth2-adobe-sign.svg?style=flat-square)](https://github.com/olsgreen/oauth2-adobe-sign/releases)
+[![Tests](https://github.com/olsgreen/oauth2-adobe-sign/workflows/Tests/badge.svg)](https://github.com/olsgreen/oauth2-adobe-sign/actions/runs)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 
 This package provides Adobe Sign OAuth 2.0 support for the PHP League's [OAuth 2.0 Client](https://github.com/thephpleague/oauth2-client).
+
+This package requires PHP >= 7.3.
 
 ## Installation
 
@@ -56,12 +59,12 @@ if (!isset($_GET['code'])) {
 
 The data center should match that of the account you are trying to access, so best store the datacenter with the access token. The current datacenters are:
 
-na1 = North America 1
-na2 = North America 2
-eu1 = EU 1
-eu2 = EU 2
-au1 = Australia 1
-jp1 = Japan 1
+- na1 = North America 1
+- na2 = North America 2
+- eu1 = EU 1
+- eu2 = EU 2
+- au1 = Australia 1
+- jp1 = Japan 1
 
 
 ## Provider Quirks
