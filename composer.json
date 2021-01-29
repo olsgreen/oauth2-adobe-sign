@@ -2,11 +2,11 @@
   "name": "olsgreen/oauth2-adobe-sign",
   "description": "Adobe Sign OAuth 2.0 Client Provider for The PHP League OAuth2-Client",
   "require": {
-    "php": "^5.6 || ^7.0 || ^8.0",
+    "php": "^7.3 || ^8.0",
     "league/oauth2-client": "^2.0"
   },
   "require-dev": {
-    "phpunit/phpunit": "^5.7 || ^6.0 || ^9.3",
+    "phpunit/phpunit": "^6.0 || ^9.3",
     "mockery/mockery": "^1.3"
   },
   "license": "MIT",
