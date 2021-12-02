@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Olsgreen\OAuth2\Client\Provider;
 
 use League\OAuth2\Client\Provider\AbstractProvider;
@@ -10,8 +9,7 @@ use League\OAuth2\Client\Token\AccessToken;
 use Psr\Http\Message\ResponseInterface;
 
 /**
- * Class AdobeSign
- * @package Olsgreen\OAuth2\Client
+ * Class AdobeSign.
  */
 class AdobeSign extends AbstractProvider
 {
@@ -27,6 +25,7 @@ class AdobeSign extends AbstractProvider
 
     /**
      * AdobeSign constructor.
+     *
      * @param array $options
      * @param array $collaborators
      */
@@ -61,6 +60,7 @@ class AdobeSign extends AbstractProvider
      * Eg. https://oauth.service.com/token
      *
      * @param array $params
+     *
      * @return string
      */
     public function getBaseAccessTokenUrl(array $params)
@@ -96,6 +96,7 @@ class AdobeSign extends AbstractProvider
      * Returns the URL for requesting the resource owner's details.
      *
      * @param AccessToken $token
+     *
      * @return string
      */
     public function getResourceOwnerDetailsUrl(AccessToken $token)
@@ -130,9 +131,10 @@ class AdobeSign extends AbstractProvider
     /**
      * Builds the authorization URL's query string.
      * Override parent getAuthorizationQuery because AdobeSign does not accept urlencoded
-     * scope in as url query
+     * scope in as url query.
      *
-     * @param  array $params Query parameters
+     * @param array $params Query parameters
+     *
      * @return string Query string
      */
     protected function getAuthorizationQuery(array $params)
@@ -147,15 +149,18 @@ class AdobeSign extends AbstractProvider
     /**
      * Checks a provider response for errors.
      *
+     * @param ResponseInterface $response
+     * @param array|string      $data     Parsed response data
+     *
      * @throws IdentityProviderException
-     * @param  ResponseInterface $response
-     * @param  array|string $data Parsed response data
+     *
      * @return void
      */
     protected function checkResponse(ResponseInterface $response, $data)
     {
         if (!empty($data['error'])) {
             $message = $data['error'].': '.$data['error_description'];
+
             throw new IdentityProviderException($message, 0, $data);
         }
     }
@@ -164,8 +169,9 @@ class AdobeSign extends AbstractProvider
      * Generates a resource owner object from a successful resource owner
      * details request.
      *
-     * @param  array $response
-     * @param  AccessToken $token
+     * @param array       $response
+     * @param AccessToken $token
+     *
      * @return ResourceOwnerInterface
      */
     protected function createResourceOwner(array $response, AccessToken $token)
@@ -182,13 +188,14 @@ class AdobeSign extends AbstractProvider
      * No default is provided, providers must overload this method to activate
      * authorization headers.
      *
-     * @param  mixed|null $token Either a string or an access token instance
+     * @param mixed|null $token Either a string or an access token instance
+     *
      * @return array
      */
     protected function getAuthorizationHeaders($token = null)
     {
         return [
-            'Access-Token' => $token
+            'Access-Token' => $token,
         ];
     }
 
@@ -196,6 +203,7 @@ class AdobeSign extends AbstractProvider
      * Returns the full URL to use when requesting an access token.
      *
      * @param array $params Query parameters
+     *
      * @return string
      */
     protected function getAccessTokenUrl(array $params)

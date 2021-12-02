@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Tests;
 
 use Mockery;
@@ -8,8 +7,7 @@ use Olsgreen\OAuth2\Client\Provider\AdobeSign;
 use Olsgreen\OAuth2\Client\Provider\NotImplementedException;
 
 /**
- * Class AdobeSignTest
- * @package Tests
+ * Class AdobeSignTest.
  */
 class AdobeSignTest extends \PHPUnit\Framework\TestCase
 {
@@ -25,12 +23,12 @@ class AdobeSignTest extends \PHPUnit\Framework\TestCase
     protected function setUp(): void
     {
         $this->provider = new AdobeSign([
-            'clientId' => 'mock_client_id',
+            'clientId'     => 'mock_client_id',
             'clientSecret' => 'mock_client_secret',
-            'redirectUri' => 'none',
-            'scope' => [
-                'mock_scope:type'
-            ]
+            'redirectUri'  => 'none',
+            'scope'        => [
+                'mock_scope:type',
+            ],
         ]);
     }
 
@@ -45,8 +43,8 @@ class AdobeSignTest extends \PHPUnit\Framework\TestCase
         $options = [
             'scope' => [
                 'user_login:account',
-                'agreement_send:account'
-            ]
+                'agreement_send:account',
+            ],
         ];
 
         $url = $this->provider->getAuthorizationUrl($options);
@@ -65,7 +63,7 @@ class AdobeSignTest extends \PHPUnit\Framework\TestCase
     public function testGetAccessTokenUrl()
     {
         $accessToken = [
-            'access_token' => 'mock_access_token'
+            'access_token' => 'mock_access_token',
         ];
 
         $response = Mockery::mock('Psr\Http\Message\ResponseInterface');
@@ -84,7 +82,7 @@ class AdobeSignTest extends \PHPUnit\Framework\TestCase
     public function testGetAccessTokenUrlForRefreshToken()
     {
         $accessToken = [
-            'access_token' => 'mock_access_token'
+            'access_token' => 'mock_access_token',
         ];
 
         $response = Mockery::mock('Psr\Http\Message\ResponseInterface');
@@ -124,13 +122,13 @@ class AdobeSignTest extends \PHPUnit\Framework\TestCase
     public function testDataCenterOption()
     {
         $provider = new AdobeSign([
-            'clientId' => 'mock_client_id',
+            'clientId'     => 'mock_client_id',
             'clientSecret' => 'mock_client_secret',
-            'redirectUri' => 'none',
-            'scope' => [
-                'mock_scope:type'
+            'redirectUri'  => 'none',
+            'scope'        => [
+                'mock_scope:type',
             ],
-            'dataCenter' => 'jp1'
+            'dataCenter' => 'jp1',
         ]);
 
         $this->assertEquals('https://secure.jp1.adobesign.com/public/oauth/v2', $provider->getBaseAuthorizationUrl());
