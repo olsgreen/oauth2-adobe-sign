@@ -5,6 +5,8 @@
 
 This package provides Adobe Sign OAuth 2.0 support for the PHP League's [OAuth 2.0 Client](https://github.com/thephpleague/oauth2-client).
 
+Looking for an AdobeSign API client? See [olsgreen/adobe-sign-api](https://github.com/olsgreen/adobe-sign-api).
+
 This package requires PHP >= 7.3.
 
 ## Installation
