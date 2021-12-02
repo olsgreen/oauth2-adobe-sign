@@ -59,7 +59,7 @@ class AdobeSignTest extends \PHPUnit\Framework\TestCase
         $uri = parse_url($url);
 
         $this->assertEquals('secure.na1.adobesign.com', $uri['host']);
-        $this->assertEquals('/public/oauth', $uri['path']);
+        $this->assertEquals('/public/oauth/v2', $uri['path']);
     }
 
     public function testGetAccessTokenUrl()
@@ -133,9 +133,9 @@ class AdobeSignTest extends \PHPUnit\Framework\TestCase
             'dataCenter' => 'jp1'
         ]);
 
-        $this->assertEquals('https://secure.jp1.adobesign.com/public/oauth', $provider->getBaseAuthorizationUrl());
-        $this->assertEquals('https://secure.jp1.adobesign.com/oauth/token', $provider->getBaseAccessTokenUrl([]));
-        $this->assertEquals('https://secure.jp1.adobesign.com/oauth/refresh', $provider->getBaseRefreshTokenUrl());
-        $this->assertEquals('https://secure.jp1.adobesign.com/oauth/revoke', $provider->getBaseRevokeTokenUrl());
+        $this->assertEquals('https://secure.jp1.adobesign.com/public/oauth/v2', $provider->getBaseAuthorizationUrl());
+        $this->assertEquals('https://secure.jp1.adobesign.com/oauth/v2/token', $provider->getBaseAccessTokenUrl([]));
+        $this->assertEquals('https://secure.jp1.adobesign.com/oauth/v2/refresh', $provider->getBaseRefreshTokenUrl());
+        $this->assertEquals('https://secure.jp1.adobesign.com/oauth/v2/revoke', $provider->getBaseRevokeTokenUrl());
     }
 }
