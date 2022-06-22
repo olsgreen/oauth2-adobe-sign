@@ -33,8 +33,21 @@ $provider = new Olsgreen\OAuth2\Client\Provider\AdobeSign([
 
 if (!isset($_GET['code'])) {
 
+    $authorizationOptions = [
+        // See documentation relating to scopes:
+        // https://opensource.adobe.com/acrobat-sign/developer_guide/helloworld.html#configure-scopes
+        'scope' => [
+            'agreement_read',
+            'agreement_write',
+            'agreement_send',
+            'webhook_read',
+            'webhook_write',
+            'webhook_retention'
+        ]
+    ];
+
     // If we don't have an authorization code then get one
-    $authUrl = $provider->getAuthorizationUrl();
+    $authUrl = $provider->getAuthorizationUrl($authorizationOptions);
     $_SESSION['oauth2state'] = $provider->getState();
     header('Location: '.$authUrl);
     exit;
